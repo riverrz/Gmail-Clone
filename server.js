@@ -21,7 +21,14 @@ mongoose.connect(
 );
 
 // Routes
-app.use("/mail", mailRoutes);
+app.use("/api/mail", mailRoutes);
+
+app.use((error, req, res, next) => {
+  console.log(error);
+  res.json({
+    error
+  });
+});
 
 app.listen(PORT, () => {
   console.log("Server has started ");

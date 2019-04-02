@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 
-const Mail = require("../models/Mail");
+const mailControllers = require("../controllers/mail");
 
-router.get("/", (req, res, next) => {
-  res.send("So many mails");
-});
+router.get("/:user", mailControllers.getMail);
+
+router.post("/", mailControllers.postMail);
 
 module.exports = router;
