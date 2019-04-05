@@ -3,7 +3,8 @@ const router = express.Router();
 
 const mailControllers = require("../controllers/mail");
 
-router.get("/:user", mailControllers.getMail);
+router.get("/name/:user", mailControllers.getMails);
+router.get("/:mailId", mailControllers.getMail);
 
 router.post("/", mailControllers.postMail);
 

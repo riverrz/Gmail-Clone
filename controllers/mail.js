@@ -1,11 +1,22 @@
 const Mail = require("../models/Mail");
 
-exports.getMail = async (req, res, next) => {
+exports.getMails = async (req, res, next) => {
   const to = req.params.user;
   const mails = await Mail.find({ to });
   res.status(200).json({
     mails
   });
+};
+
+exports.getMail = async (req, res, next) => {
+  const mailId = req.params.mailId;
+  try {
+    const mail = await Mail.findById(mailId);
+    res.json(mail);
+  } catch (err) {
+    err.statusCode = 500;
+    next(err);
+  }
 };
 
 exports.postMail = async (req, res, next) => {

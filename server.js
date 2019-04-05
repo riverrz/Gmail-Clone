@@ -21,7 +21,7 @@ mongoose.connect(
 );
 
 // Routes
-app.use("/api/mail", mailRoutes);
+app.use("/mail", mailRoutes);
 
 app.use((error, req, res, next) => {
   console.log(error);
