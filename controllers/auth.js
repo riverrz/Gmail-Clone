@@ -26,11 +26,11 @@ exports.postRegister = (req, res, next) => {
     // creating a hash from the given password
     bcrypt.genSalt(12, (err, salt) => {
       if (err) {
-        throw err;
+        return next(err);
       }
       bcrypt.hash(newUser.password, salt, null, async (err, hash) => {
         if (err) {
-          throw err;
+          return next(err);
         }
         // set hashed password as the password field in newUser object.
         newUser.password = hash;
@@ -45,6 +45,37 @@ exports.postRegister = (req, res, next) => {
           message: "Success",
           token
         });
+      });
+    });
+  } catch (err) {
+    err.statusCode = err.statusCode || 500;
+    throw err;
+  }
+};
+
+exports.postLogin = async (req, res, next) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      const error = new Error("Invalid Email/Password");
+      error.statusCode = 404;
+      return next(error);
+    }
+    bcrypt.compare(password, user.password, async (err, isMatch) => {
+      if (err) {
+        return next(err);
+      }
+      if (!isMatch) {
+        const error = new Error("Invalid Email/Password");
+        error.statusCode = 404;
+        return next(error);
+      }
+      const token = await genToken(user._id, user.email);
+      res.status(200).json({
+        message: "Success",
+        token
       });
     });
   } catch (err) {

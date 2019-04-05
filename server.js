@@ -26,9 +26,12 @@ app.use("/mail", mailRoutes);
 app.use("/auth", authRoutes);
 
 app.use((error, req, res, next) => {
-  console.log(error);
+  console.log(error.message);
   res.json({
-    error
+    error: {
+      statusCode: error.statusCode,
+      message: error.message
+    }
   });
 });
 
