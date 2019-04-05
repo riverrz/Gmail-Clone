@@ -3,12 +3,12 @@ const { Schema } = mongoose;
 
 const mailSchema = new Schema({
   to: {
-    type: String,
-    required: true
+    type: Schema.Types.ObjectId,
+    ref: "User"
   },
   from: {
-    type: String,
-    required: true
+    type: Schema.Types.ObjectId,
+    ref: "User"
   },
   subject: {
     type: String

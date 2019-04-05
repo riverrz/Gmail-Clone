@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const app = express();
 
 const mailRoutes = require("./routes/mail");
+const authRoutes = require("./routes/auth");
 
 const PORT = process.env.PORT || 5000;
 
@@ -22,6 +23,7 @@ mongoose.connect(
 
 // Routes
 app.use("/mail", mailRoutes);
+app.use("/auth", authRoutes);
 
 app.use((error, req, res, next) => {
   console.log(error);
