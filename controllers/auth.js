@@ -32,7 +32,7 @@ exports.postRegister = (req, res, next) => {
         // Create jwt token and send
         const token = await genToken(createdUser._id, createdUser.email);
         res.status(201).json({
-          message: "Success",
+          success: true,
           token
         });
       });
@@ -64,7 +64,7 @@ exports.postLogin = async (req, res, next) => {
       }
       const token = await genToken(user._id, user.email);
       res.status(200).json({
-        message: "Success",
+        success: true,
         token
       });
     });

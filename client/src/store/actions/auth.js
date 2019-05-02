@@ -6,7 +6,7 @@ export const authSuccess = data => {
     type,
     payload: {
       username: user.username,
-      email: user.email,
+      email: user.email
     }
   };
 };
