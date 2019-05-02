@@ -1,17 +1,19 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const app = express();
+
+const {DB_URI} = require("./keys/keys");
 
 const mailRoutes = require("./routes/mail");
 const authRoutes = require("./routes/auth");
+const app = express();
 
 const PORT = process.env.PORT || 5000;
 
 app.use(bodyParser.json());
 
 mongoose.connect(
-  "mongodb+srv://admin:admin@cluster0-ff6fm.mongodb.net/gmail?retryWrites=true",
+  DB_URI,
   err => {
     if (err) {
       console.log(err);
