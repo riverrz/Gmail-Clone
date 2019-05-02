@@ -7,9 +7,8 @@ import Loader from "../Loader/Loader";
 
 class Register extends Component {
   state = {
-    email: "",
-    password: "",
     username: "",
+    password: ""
   };
   handleInput = (event, key) => {
     this.setState({
@@ -20,7 +19,6 @@ class Register extends Component {
     event.preventDefault();
     // Dispatch authInit with user and type as "Register"
     const user = {
-      email: this.state.email,
       username: this.state.username,
       password: this.state.password,
     };
@@ -50,16 +48,6 @@ class Register extends Component {
               name="username"
               id="username"
               onChange={event => this.handleInput(event, "username")}
-              required
-            />
-          </div>
-          <div className="Register__form__control">
-            <label htmlFor="email">Email:</label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              onChange={event => this.handleInput(event, "email")}
               required
             />
           </div>

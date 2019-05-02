@@ -7,12 +7,12 @@ import Loader from '../Loader/Loader';
 
 class Login extends Component {
   state = {
-    email: "",
+    username: "",
     password: ""
   };
-  handleEmail = event => {
+  handleUsername = event => {
     this.setState({
-      email: event.target.value
+      username: event.target.value
     });
   };
   handlePassword = event => {
@@ -24,7 +24,7 @@ class Login extends Component {
     event.preventDefault();
     // Dispatch authInit with user and type as "Login"
     const user = {
-      email: this.state.email,
+      username: this.state.username,
       password: this.state.password
     };
     this.props.handleForm({ user, type: "Login" });
@@ -46,12 +46,12 @@ class Login extends Component {
       content = (
         <form onSubmit={this.handleForm} className="Login__form">
           <div className="Login__form__control">
-            <label htmlFor="email">Email:</label>
+            <label htmlFor="username">Username:</label>
             <input
-              type="email"
-              name="email"
-              id="email"
-              onChange={this.handleEmail}
+              type="username"
+              name="username"
+              id="username"
+              onChange={this.handleUsername}
               required
             />
           </div>

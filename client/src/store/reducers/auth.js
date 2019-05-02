@@ -2,7 +2,6 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
   username: "",
-  email: "",
   isLoggedIn: false,
   loading: false,
   error: false,
@@ -27,7 +26,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         username: action.payload.username,
-        email: action.payload.email,
         isLoggedIn: true,
         loading: false,
         error: false,

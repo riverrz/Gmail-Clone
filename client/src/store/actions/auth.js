@@ -5,8 +5,7 @@ export const authSuccess = data => {
   return {
     type,
     payload: {
-      username: user.username,
-      email: user.email
+      username: user.username
     }
   };
 };
@@ -39,7 +38,7 @@ export const authInit = data => {
         return getUser()
           .then(user => {
             if (!user) {
-              dispatch(authError(["Invalid email/password"]));
+              dispatch(authError(["Invalid username/password"]));
             }
             return dispatch(
               authSuccess({ user, type: actionTypes.LOGIN_SUCCESS })
@@ -73,7 +72,7 @@ export const checkLogin = () => {
     return getUser()
       .then(user => {
         if (!user) {
-          dispatch(authError(["Invalid email/password"]));
+          dispatch(authError(["Invalid username/password"]));
         }
         return dispatch(authSuccess({ user, type: actionTypes.LOGIN_SUCCESS }));
       })
