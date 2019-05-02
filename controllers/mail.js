@@ -3,9 +3,8 @@ const User = require("../models/User");
 
 exports.getMails = async (req, res, next) => {
   try {
-    const to = req.user.username;
-    const mails = await Mail.find({ to })
-      .populate(["to", "from"].join(" "), "email")
+    const mails = await Mail.find({ receiver: req.user._id })
+      .populate("sender", "username")
       .exec();
     res.status(200).json({
       success: true,
@@ -21,7 +20,7 @@ exports.getMail = async (req, res, next) => {
   const mailId = req.params.mailId;
   try {
     const mail = await Mail.findById(mailId)
-      .populate(["to", "from"].join(" "), "email")
+      .populate("sender", "username")
       .exec();
     res.json(mail);
   } catch (err) {
@@ -31,23 +30,23 @@ exports.getMail = async (req, res, next) => {
 };
 
 exports.postMail = async (req, res, next) => {
-  const to = req.body.to;
-  const from = req.body.from;
+  const receiver = req.body.receiver;
+  const sender = req.body.sender;
   try {
     // Find if account present in 'to' field exists.
-    const toUser = await User.findOne({ email: to });
-    if (!toUser) {
+    const receiverUser = await User.findOne({ username: receiver });
+    if (!receiverUser) {
       const err = new Error(
-        "User account presented in 'to' field doesnt exist"
+        "User account presented in 'receiver' field doesnt exist"
       );
       err.statusCode = 404;
       throw err;
     }
     // Find if account present in 'from' field exists
-    const fromUser = await User.findOne({ email: from });
-    if (!fromUser) {
+    const senderUser = await User.findOne({ username: sender });
+    if (!senderUser) {
       const err = new Error(
-        "User account presented in 'from' field doesnt exist"
+        "User account presented in 'sender' field doesnt exist"
       );
       err.statusCode = 404;
       throw err;
@@ -56,8 +55,8 @@ exports.postMail = async (req, res, next) => {
     const mailObj = {
       subject: req.body.subject,
       body: req.body.body,
-      to: toUser._id,
-      from: fromUser._id
+      receiver: receiverUser._id,
+      sender: senderUser._id
     };
     const mail = new Mail(mailObj);
     await mail.save();

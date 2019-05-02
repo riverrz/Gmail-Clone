@@ -10,6 +10,11 @@ module.exports = async function(req, res, next) {
       throw error;
     }
     const user = await User.findById(payload.id);
+    if (!user) {
+      const error = new Error("User doesnt exist");
+      error.statusCode = 404;
+      throw error;
+    }
     req.user = user;
     next();
   } catch (err) {

@@ -2,11 +2,11 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const mailSchema = new Schema({
-  to: {
+  sender: {
     type: Schema.Types.ObjectId,
     ref: "User"
   },
-  from: {
+  receiver: {
     type: Schema.Types.ObjectId,
     ref: "User"
   },
