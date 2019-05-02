@@ -5,23 +5,38 @@ const User = require("../models/User");
 
 const { genToken } = require("../helpers/token");
 
-exports.postRegister = (req, res, next) => {
+exports.postRegister = async (req, res, next) => {
   // User object
   const newUser = {
     email: req.body.email,
     username: req.body.username,
     password: req.body.password
   };
+  // Check if user exists
   try {
-    // creating a hash from the given password
-    bcrypt.genSalt(12, (err, salt) => {
+    const user = await User.findOne({
+      $or: [{ email: newUser.email }, { username: newUser.username }]
+    });
+    if (user) {
+      const error = new Error("Email/Username already taken.");
+      error.statusCode = 422;
+      throw error;
+    }
+  } catch (error) {
+    error.statusCode = error.statusCode || 500;
+    next(error);
+  }
+
+  // creating a hash from the given password
+  bcrypt.genSalt(12, (err, salt) => {
+    if (err) {
+      return next(err);
+    }
+    bcrypt.hash(newUser.password, salt, null, async (err, hash) => {
       if (err) {
         return next(err);
       }
-      bcrypt.hash(newUser.password, salt, null, async (err, hash) => {
-        if (err) {
-          return next(err);
-        }
+      try {
         // set hashed password as the password field in newUser object.
         newUser.password = hash;
 
@@ -35,12 +50,12 @@ exports.postRegister = (req, res, next) => {
           success: true,
           token
         });
-      });
+      } catch (err) {
+        err.statusCode = err.statusCode || 500;
+        next(err);
+      }
     });
-  } catch (err) {
-    err.statusCode = err.statusCode || 500;
-    throw err;
-  }
+  });
 };
 
 exports.postLogin = async (req, res, next) => {

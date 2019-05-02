@@ -33,7 +33,7 @@ class Register extends Component {
       // Show Loader
       content = <Loader />;
     } else if (this.props.isLoggedIn) {
-      content = <Redirect to="/dashboard?tab=Dashboard" />;
+      content = <Redirect to="/inbox" />;
     } else {
       // Show register form if not registered
       if (this.props.error) {
