@@ -4,6 +4,7 @@ const User = require("../models/User");
 exports.getMails = async (req, res, next) => {
   try {
     const mails = await Mail.find({ receiver: req.user._id })
+      .select(["sender", "subject"])
       .populate("sender", "username")
       .exec();
     res.status(200).json({
