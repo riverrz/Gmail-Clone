@@ -1,11 +1,13 @@
 const express = require("express");
 const router = express.Router();
 
+const isAuth = require("../middlewares/isAuth");
+
 const mailControllers = require("../controllers/mail");
 
-router.get("/name/:user", mailControllers.getMails);
-router.get("/:mailId", mailControllers.getMail);
+router.get("/", isAuth, mailControllers.getMails);
+router.get("/:mailId", isAuth, mailControllers.getMail);
 
-router.post("/", mailControllers.postMail);
+router.post("/", isAuth,mailControllers.postMail);
 
 module.exports = router;

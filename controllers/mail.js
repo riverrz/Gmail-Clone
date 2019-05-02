@@ -2,13 +2,19 @@ const Mail = require("../models/Mail");
 const User = require("../models/User");
 
 exports.getMails = async (req, res, next) => {
-  const to = req.params.user;
-  const mails = await Mail.find({ to })
-    .populate(["to", "from"].join(" "), "email")
-    .exec();
-  res.status(200).json({
-    mails
-  });
+  try {
+    const to = req.user.username;
+    const mails = await Mail.find({ to })
+      .populate(["to", "from"].join(" "), "email")
+      .exec();
+    res.status(200).json({
+      success: true,
+      mails
+    });
+  } catch (error) {
+    error.statusCode = 500;
+    next(error);
+  }
 };
 
 exports.getMail = async (req, res, next) => {

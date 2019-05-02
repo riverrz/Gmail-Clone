@@ -8,17 +8,14 @@ const { genToken } = require("../helpers/token");
 exports.postRegister = async (req, res, next) => {
   // User object
   const newUser = {
-    email: req.body.email,
     username: req.body.username,
     password: req.body.password
   };
   // Check if user exists
   try {
-    const user = await User.findOne({
-      $or: [{ email: newUser.email }, { username: newUser.username }]
-    });
+    const user = await User.findOne({ username: newUser.username });
     if (user) {
-      const error = new Error("Email/Username already taken.");
+      const error = new Error("Username already taken.");
       error.statusCode = 422;
       throw error;
     }
@@ -45,7 +42,7 @@ exports.postRegister = async (req, res, next) => {
         await createdUser.save();
 
         // Create jwt token and send
-        const token = await genToken(createdUser._id, createdUser.email);
+        const token = await genToken(createdUser._id, createdUser.username);
         res.status(201).json({
           success: true,
           token
@@ -59,12 +56,12 @@ exports.postRegister = async (req, res, next) => {
 };
 
 exports.postLogin = async (req, res, next) => {
-  const email = req.body.email;
+  const username = req.body.username;
   const password = req.body.password;
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ username });
     if (!user) {
-      const error = new Error("Invalid Email/Password");
+      const error = new Error("Invalid Username/Password");
       error.statusCode = 404;
       return next(error);
     }
@@ -73,11 +70,11 @@ exports.postLogin = async (req, res, next) => {
         return next(err);
       }
       if (!isMatch) {
-        const error = new Error("Invalid Email/Password");
+        const error = new Error("Invalid Username/Password");
         error.statusCode = 404;
         return next(error);
       }
-      const token = await genToken(user._id, user.email);
+      const token = await genToken(user._id, user.username);
       res.status(200).json({
         success: true,
         token
@@ -92,7 +89,6 @@ exports.postLogin = async (req, res, next) => {
 exports.getCurrentUser = (req, res, next) => {
   res.json({
     username: req.user.username,
-    email: req.user.email,
     id: req.user._id
   });
 };
