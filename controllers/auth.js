@@ -1,19 +1,9 @@
 const bcrypt = require("bcrypt-nodejs");
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
 const User = require("../models/User");
-const keys = require("../keys/keys");
+// const keys = require("../keys/keys");
 
-function genToken(id, email) {
-  return new Promise(function(resolve, reject) {
-    jwt.sign({ id, email }, keys.SECRET, function(err, token) {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(token);
-      }
-    });
-  });
-}
+const { genToken } = require("../helpers/token");
 
 exports.postRegister = (req, res, next) => {
   // User object
@@ -82,4 +72,12 @@ exports.postLogin = async (req, res, next) => {
     err.statusCode = err.statusCode || 500;
     throw err;
   }
+};
+
+exports.getCurrentUser = (req, res, next) => {
+  res.json({
+    username: req.user.username,
+    email: req.user.email,
+    id: req.user._id
+  });
 };

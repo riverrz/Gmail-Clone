@@ -1,0 +1,76 @@
+.Inbox__nav {
+  /* margin-bottom: 20px; */
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  height: 10vh;
+  padding: 0 20px;
+  align-items: center;
+  font-weight: 300;
+  border-bottom: 1px solid #3f3f3f;
+}
+.btn-logout {
+  transition: 0.3s;
+}
+.btn-logout:hover {
+  color: rgb(231, 75, 75);
+}
+.Inbox__main {
+  padding: 20px;
+  display: flex;
+  height: 90vh;
+}
+.Inbox__sideDrawer {
+  height: 100%;
+  width: 15vw;
+  margin-right: 20px;
+  border-radius: 10px;
+  border: 1px solid #1d1d1d;
+  color: #ddd;
+  background: linear-gradient(0deg, #3358f4, #1d8cf8);
+}
+.Inbox__sideDrawer hr {
+  width: 80%;
+  height: 1px;
+  border: none;
+  background-color: #eee;
+}
+.Inbox__sideDrawer h3 {
+  font-weight: 300;
+  text-align: center;
+  margin: 20px;
+  color: #fff;
+}
+
+.Inbox__sideList {
+  font-weight: 300;
+  font-size: 0.95rem;
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  padding-left: 2rem;
+  margin-top: 20%;
+  height: 60%;
+  justify-content: space-between;
+}
+.Inbox__sideList__item{
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.Inbox__sideList__item i {
+  margin-right: 7px;
+  font-size: 1.2rem;
+}
+.Inbox__sideList__item:hover,
+.Inbox__sideList__item--active {
+  color: #fff;
+}
+
+
+.Inbox__section {
+  height: 100%;
+  flex: 1;
+  border-left: 1px solid #3f3f3f;
+  padding-left: 20px;
+}
