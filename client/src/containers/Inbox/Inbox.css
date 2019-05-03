@@ -35,6 +35,8 @@
   border-bottom: 1px solid #4f4f4f;
   display: flex;
   transition: 0.1s;
+}
+.Inbox__mailList__item:not(:first-of-type){
   cursor: pointer;
 }
 .Inbox__mailList__item:hover{

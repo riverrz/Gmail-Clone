@@ -44,7 +44,7 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    loading: () => dispatch({ type: actionTypes.AUTH_START }),
+    loading: () => dispatch({ type: actionTypes.LOADING }),
     checkLogin: () => dispatch(AuthActions.checkLogin())
   };
 };

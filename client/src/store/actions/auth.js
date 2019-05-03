@@ -18,7 +18,7 @@ export const authInit = data => {
     url = "/api/auth/register";
   }
   return dispatch => {
-    dispatch({ type: actionTypes.AUTH_START });
+    dispatch({ type: actionTypes.LOADING });
     return fetch(url, {
       method: "POST",
       body: JSON.stringify(user),
@@ -64,7 +64,7 @@ export const getUser = () => {
 
 export const checkLogin = () => {
   return dispatch => {
-    dispatch({ type: actionTypes.AUTH_START });
+    dispatch({ type: actionTypes.LOADING });
     const token = localStorage.getItem("token");
     if (!token) {
       return dispatch({ type: actionTypes.LOGOUT });
