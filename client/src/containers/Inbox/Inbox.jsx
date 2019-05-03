@@ -19,6 +19,9 @@ class Inbox extends Component {
   };
   componentDidMount() {
     // Fetch all mails for logged in user
+    this.fetchMails();
+  }
+  fetchMails = () => {
     this.setState({
       loading: true
     });
@@ -49,7 +52,7 @@ class Inbox extends Component {
           errorMessageArr: [err.message]
         });
       });
-  }
+  };
   render() {
     let content;
     if (this.state.loading) {
@@ -74,6 +77,9 @@ class Inbox extends Component {
       <Fragment>
         <nav className="Inbox__nav">
           Gmail Clone
+          <button onClick={this.fetchMails} className="btn">
+            Refetch
+          </button>
           <button onClick={this.handleLogout} className="btn btn-logout">
             Logout
           </button>

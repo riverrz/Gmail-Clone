@@ -42,6 +42,7 @@ ul {
   background-color: transparent;
   font: inherit;
   color: #fff;
+  outline: none;
 }
 
 #root {
