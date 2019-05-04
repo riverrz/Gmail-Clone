@@ -23,4 +23,8 @@ const mailSchema = new Schema(
   }
 );
 
+mailSchema.methods.isReceiver = function(userId) {
+  return this.receiver._id.toString() === userId.toString();
+};
+
 module.exports = mongoose.model("Mail", mailSchema);

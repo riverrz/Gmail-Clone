@@ -26,7 +26,7 @@ app.use("/api/auth", authRoutes);
 
 app.use((error, req, res, next) => {
   console.log(error.message);
-  res.json({
+  res.status(error.statusCode).json({
     error: true,
     messages: [error.message]
   });

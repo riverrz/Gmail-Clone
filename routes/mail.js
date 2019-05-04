@@ -8,6 +8,6 @@ const mailControllers = require("../controllers/mail");
 router.get("/", isAuth, mailControllers.getMails);
 router.get("/:mailId", isAuth, mailControllers.getMail);
 
-router.post("/", isAuth,mailControllers.postMail);
+router.post("/", isAuth, mailControllers.postMail);
 
 module.exports = router;
