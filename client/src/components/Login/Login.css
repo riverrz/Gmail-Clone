@@ -13,7 +13,7 @@
   background-color: rgb(82, 86, 110);
   border-radius: 20px;
   max-width: 400px;
-  max-height: 400px;
+  max-height: 450px;
   min-height: 200px;
   min-width: 200px;
   height: 50vh;
@@ -48,4 +48,7 @@
 }
 .errors {
   color: red;
+}
+.Login__link{
+  text-align: right;
 }

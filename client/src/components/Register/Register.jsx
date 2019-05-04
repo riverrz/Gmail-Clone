@@ -69,6 +69,7 @@ class Register extends Component {
       <div className="Register__container">
         <div className="errors">{errorMessageArr}</div>
         {content}
+        <a href="/login">Login</a>
       </div>
     );
   }

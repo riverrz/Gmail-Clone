@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import * as AuthActions from "../../store/actions/auth";
 import "./Login.css";
-import Loader from '../Loader/Loader';
+import Loader from "../Loader/Loader";
 
 class Login extends Component {
   state = {
@@ -73,6 +73,9 @@ class Login extends Component {
       <div className="Login__container">
         <span className="errors">{errorMessageArr}</span>
         {content}
+        <a href="/register" className="Login__link">
+          Register
+        </a>
       </div>
     );
   }
