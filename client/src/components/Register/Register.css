@@ -17,6 +17,7 @@
   min-height: 200px;
   min-width: 200px;
   width: 40vw;
+  height: 50vh;
   padding: 20px;
 }
 .Register__form label {
@@ -53,4 +54,8 @@
   color: red;
   display: flex;
   flex-direction: column;
+}
+
+.Register__link{
+  margin: 20px 0;
 }

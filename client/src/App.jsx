@@ -5,6 +5,7 @@ import Inbox from "./containers/Inbox/Inbox";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
 import NotFound from "./components/404/404";
+import Main from "./components/Main/Main";
 import * as actionTypes from "./store/actions/actionTypes";
 import Loader from "./components/Loader/Loader";
 import * as AuthActions from "./store/actions/auth";
@@ -25,9 +26,10 @@ class App extends Component {
           {!this.props.isLoggedIn ? (
             <Redirect from="/inbox" to="/login" />
           ) : null}
-          <Route path="/inbox" component={Inbox} />
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
+          <Route path="/" exact component={Main} />
+          <Route path="/inbox" exact component={Inbox} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/register" exact component={Register} />
           <Route component={NotFound} />
         </Switch>
       );

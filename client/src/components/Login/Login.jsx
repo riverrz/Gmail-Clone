@@ -74,7 +74,7 @@ class Login extends Component {
         <span className="errors">{errorMessageArr}</span>
         {content}
         <a href="/register" className="Login__link">
-          Register
+          Didn't register yet?
         </a>
       </div>
     );

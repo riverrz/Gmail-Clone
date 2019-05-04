@@ -16,10 +16,12 @@ class Inbox extends Component {
     localStorage.removeItem("token");
     // Dispatch logout action
     this.props.logout();
+    this.props.history.replace("/");
   };
   componentDidMount() {
     // Fetch all mails for logged in user
     this.fetchMails();
+    // Redirect to "/"
   }
   fetchMails = () => {
     this.setState({
