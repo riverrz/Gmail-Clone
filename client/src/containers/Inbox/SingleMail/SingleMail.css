@@ -1,0 +1,9 @@
+.SingleMail__goBack{
+    color: #333;
+    font-size: 1.6rem;
+}
+
+.SingleMail__container>*:not(:last-child){
+    display: block;
+    border-bottom: 1px solid #3f3f3f;
+}

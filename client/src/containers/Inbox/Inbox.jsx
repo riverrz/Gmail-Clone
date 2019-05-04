@@ -98,6 +98,13 @@ class Inbox extends Component {
         });
       });
   };
+
+  closeSingleMail = () => {
+    this.setState({
+      showMail: false,
+      singleMail: null
+    });
+  };
   render() {
     let content;
     if (this.state.loading) {
@@ -115,7 +122,12 @@ class Inbox extends Component {
         <AllMails mails={this.state.mails} onClick={this.fetchSingleMail} />
       );
     } else if (this.state.showMail) {
-      content = <SingleMail mail={this.state.singleMail} />;
+      content = (
+        <SingleMail
+          mail={this.state.singleMail}
+          closeHandler={this.closeSingleMail}
+        />
+      );
     }
     return (
       <Fragment>
