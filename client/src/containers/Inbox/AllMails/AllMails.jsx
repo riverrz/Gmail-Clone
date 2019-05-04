@@ -5,7 +5,11 @@ const AllMails = props => {
   const content = props.mails.map((mail, i) => {
     mail.createdAt = new Date(mail.createdAt).toLocaleDateString();
     return (
-      <li key={i} className="AllMails__mailList__item">
+      <li
+        key={i}
+        className="AllMails__mailList__item"
+        onClick={props.onClick.bind(this, mail._id)}
+      >
         <p>{mail.sender.username}</p>
         <p>{mail.subject}</p>
         <p>{mail.createdAt}</p>

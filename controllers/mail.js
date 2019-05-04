@@ -23,15 +23,19 @@ exports.getMail = async (req, res, next) => {
     const mail = await Mail.findById(mailId)
       .populate("sender", "username")
       .exec();
-    
-      // Check if logged in user is the receiver of the mail
+    if (!mail) {
+      const error = new Error("Mail not found");
+      error.statusCode = 404;
+      return next(error);
+    }
+    // Check if logged in user is the receiver of the mail
     const isReceiverBool = mail.isReceiver(req.user._id);
     if (!isReceiverBool) {
       const error = new Error("Access Denied");
       error.statusCode = 403;
       return next(error);
     }
-    res.json(mail);
+    res.json({ success: true, mail });
   } catch (err) {
     err.statusCode = 500;
     next(err);

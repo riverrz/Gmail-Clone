@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import * as actionTypes from "../../store/actions/actionTypes";
 import Loader from "../../components/Loader/Loader";
 import AllMails from "./AllMails/AllMails";
+import SingleMail from "./SingleMail/SingleMail";
 import "./Inbox.css";
 
 class Inbox extends Component {
@@ -10,7 +11,9 @@ class Inbox extends Component {
     loading: false,
     mails: [],
     error: false,
-    errorMessageArr: []
+    errorMessageArr: [],
+    showMail: false,
+    singleMail: null
   };
   handleLogout = () => {
     // Remove the token from local storage
@@ -60,6 +63,41 @@ class Inbox extends Component {
         });
       });
   };
+
+  fetchSingleMail = mailId => {
+    this.setState({
+      loading: true
+    });
+    fetch(`/api/mail/${mailId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("token")
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (!data.success) {
+          return this.setState({
+            loading: false,
+            error: true,
+            errorMessageArr: ["Mail not found"]
+          });
+        }
+        this.setState({
+          loading: false,
+          singleMail: data.mail,
+          showMail: true
+        });
+      })
+      .catch(err => {
+        this.setState({
+          loading: false,
+          error: true,
+          errorMessageArr: [err.messages]
+        });
+      });
+  };
   render() {
     let content;
     if (this.state.loading) {
@@ -72,8 +110,12 @@ class Inbox extends Component {
           </p>
         );
       });
-    } else {
-      content = <AllMails mails={this.state.mails}/>
+    } else if (!this.state.showMail) {
+      content = (
+        <AllMails mails={this.state.mails} onClick={this.fetchSingleMail} />
+      );
+    } else if (this.state.showMail) {
+      content = <SingleMail mail={this.state.singleMail} />;
     }
     return (
       <Fragment>
@@ -86,9 +128,7 @@ class Inbox extends Component {
             Logout
           </button>
         </nav>
-        <main className="Inbox__main">
-          {content}
-        </main>
+        <main className="Inbox__main">{content}</main>
       </Fragment>
     );
   }
