@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import * as actionTypes from "../../store/actions/actionTypes";
 import Loader from "../../components/Loader/Loader";
+import AllMails from "./AllMails/AllMails";
 import "./Inbox.css";
 
 class Inbox extends Component {
@@ -49,8 +50,12 @@ class Inbox extends Component {
         });
       })
       .catch(err => {
+        if (!err.message) {
+          err.message = "Try again later";
+        }
         this.setState({
           error: true,
+          loading: false,
           errorMessageArr: [err.message]
         });
       });
@@ -60,20 +65,15 @@ class Inbox extends Component {
     if (this.state.loading) {
       content = <Loader />;
     } else if (this.state.error) {
-      content = this.props.errorMessageArr.map((err, i) => {
-        return <p key={i}>{err}</p>;
-      });
-    } else {
-      content = this.state.mails.map((mail, i) => {
-        mail.createdAt = new Date(mail.createdAt).toLocaleDateString();
+      content = this.state.errorMessageArr.map((err, i) => {
         return (
-          <li key={i} className="Inbox__mailList__item">
-            <p>{mail.sender.username}</p>
-            <p>{mail.subject}</p>
-            <p>{mail.createdAt}</p>
-          </li>
+          <p key={i} style={{ color: "red", textAlign: "center" }}>
+            {err}
+          </p>
         );
       });
+    } else {
+      content = <AllMails mails={this.state.mails}/>
     }
     return (
       <Fragment>
@@ -87,14 +87,7 @@ class Inbox extends Component {
           </button>
         </nav>
         <main className="Inbox__main">
-          <ul className="Inbox__mailList">
-            <li className="Inbox__mailList__item Inbox__heading">
-              <p>From</p>
-              <p>Subject</p>
-              <p>Timestamp</p>
-            </li>
-            {content}
-          </ul>
+          {content}
         </main>
       </Fragment>
     );

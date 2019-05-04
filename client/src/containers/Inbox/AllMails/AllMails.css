@@ -1,0 +1,27 @@
+.AllMails__mailList {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+}
+
+.AllMails__mailList__item{
+  border-bottom: 1px solid #4f4f4f;
+  display: flex;
+  transition: 0.1s;
+}
+.AllMails__mailList__item:not(:first-of-type){
+  cursor: pointer;
+}
+.AllMails__mailList__item:hover{
+  background-color: #222;
+  color: #fff;
+}
+.AllMails__mailList__item > * {
+  flex: 1;
+  text-align: center;
+}
+.AllMails__heading{
+  background-color: #222;
+  color: #fff;
+  margin-bottom: 20px;
+}

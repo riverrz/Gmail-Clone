@@ -17,38 +17,10 @@
 }
 .Inbox__main {
   padding: 20px;
-  display: flex;
   height: 90vh;
 }
 
 .Inbox__main {
   background-color: #d3d3d3;
   color: #222;
-}
-.Inbox__mailList {
-  display: flex;
-  flex-flow: column;
-  width: 100%;
-}
-
-.Inbox__mailList__item{
-  border-bottom: 1px solid #4f4f4f;
-  display: flex;
-  transition: 0.1s;
-}
-.Inbox__mailList__item:not(:first-of-type){
-  cursor: pointer;
-}
-.Inbox__mailList__item:hover{
-  background-color: #222;
-  color: #fff;
-}
-.Inbox__mailList__item > * {
-  flex: 1;
-  text-align: center;
-}
-.Inbox__heading{
-  background-color: #222;
-  color: #fff;
-  margin-bottom: 20px;
 }
