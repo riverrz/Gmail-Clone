@@ -1,0 +1,91 @@
+.CreateMail__container {
+  position: fixed;
+  bottom: 2rem;
+  right: 3rem;
+  background-color: red;
+  color: #fff;
+  border-radius: 50%;
+  height: 3.5rem;
+  width: 3.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.CreateMail__createBtn {
+  font-size: 1.2rem;
+  background-color: transparent;
+  color: inherit;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.CreateMail__createBtn i {
+  transition: 0.3s;
+  transform: rotate(0deg);
+}
+.CreateMail__createBtn--close {
+  transform: rotate(-135deg) !important;
+}
+.CreateMail__formContainer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  height: 65rem;
+  width: 85rem;
+  -webkit-clip-path: circle(47.5% at 91% 90%);
+  clip-path: circle(47.5% at 91% 90%);
+  transition: 0.5s;
+  transform-origin: bottom right;
+  background-color: #fff;
+  color: #222;
+}
+.CreateMail__form {
+  position: fixed;
+  bottom: 2rem;
+  right: 4rem;
+  display: flex;
+  flex-flow: column;
+}
+.CreateMail__form .form__control {
+  margin: 20px;
+  display: flex;
+  flex-flow: column;
+  width: 25rem;
+}
+.CreateMail__form .form__control label{
+  margin-bottom: 5px;
+}
+.CreateMail__form .form__control input{
+  background-color: transparent;
+  color: #222;
+  border: none;
+  border-bottom: 2px solid #d3d3d3;
+  outline: none;
+  padding: 1rem;
+  font-size: 1rem;
+}
+.formContainer--hidden {
+  transform: scale(0);
+}
+.formContainer--visible {
+  transform: scale(1);
+}
+
+.CreateMail__sendBtn{
+  align-self: center;
+  background-color: green;
+  color: #fff;
+  font-size: 1.2rem;
+  height: 3.5rem;
+  width: 3.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+}

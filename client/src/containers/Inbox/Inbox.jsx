@@ -4,6 +4,7 @@ import * as actionTypes from "../../store/actions/actionTypes";
 import Loader from "../../components/Loader/Loader";
 import AllMails from "./AllMails/AllMails";
 import SingleMail from "./SingleMail/SingleMail";
+import CreateMail from "../../components/CreateMail/CreateMail";
 import "./Inbox.css";
 
 class Inbox extends Component {
@@ -13,7 +14,8 @@ class Inbox extends Component {
     error: false,
     errorMessageArr: [],
     showMail: false,
-    singleMail: null
+    singleMail: null,
+    createMail: false
   };
   handleLogout = () => {
     // Remove the token from local storage
@@ -105,6 +107,14 @@ class Inbox extends Component {
       singleMail: null
     });
   };
+
+  createMailHandler = () => {
+    this.setState(prevState => {
+      return {
+        createMail: !prevState.createMail
+      };
+    });
+  };
   render() {
     let content;
     if (this.state.loading) {
@@ -143,6 +153,10 @@ class Inbox extends Component {
         <main className="Inbox__main">
           <h3>Welcome {this.props.username}</h3>
           {content}
+          <CreateMail
+            createMailHandler={this.createMailHandler}
+            createMail={this.state.createMail}
+          />
         </main>
       </Fragment>
     );
