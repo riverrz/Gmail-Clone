@@ -53,7 +53,7 @@ exports.postMail = async (req, res, next) => {
         "User account presented in 'receiver' field doesnt exist"
       );
       err.statusCode = 404;
-      throw err;
+      return next(err);
     }
     // Find if account present in 'from' field exists
     const senderUser = await User.findOne({ username: sender });
@@ -62,7 +62,7 @@ exports.postMail = async (req, res, next) => {
         "User account presented in 'sender' field doesnt exist"
       );
       err.statusCode = 404;
-      throw err;
+      return next(err);
     }
     // Creating mail object
     const mailObj = {
@@ -78,6 +78,29 @@ exports.postMail = async (req, res, next) => {
     });
   } catch (err) {
     err.statusCode = err.statusCode || 500;
-    throw err;
+    next(err);
+  }
+};
+
+exports.deleteMail = async (req, res, next) => {
+  try {
+    const mail = await Mail.findById(req.params.mailId);
+    if (!mail) {
+      const error = new Error("Mail not found");
+      error.statusCode = 404;
+      return next(error);
+    }
+    // Check if logged in user is the receiver of the mail
+    const isReceiverBool = mail.isReceiver(req.user._id);
+    if (!isReceiverBool) {
+      const error = new Error("Access Denied");
+      error.statusCode = 403;
+      return next(error);
+    }
+    await Mail.findByIdAndDelete(req.params.mailId);
+    res.json({ success: true });
+  } catch (error) {
+    error.statusCode = error.statusCode || 500;
+    next(error);
   }
 };

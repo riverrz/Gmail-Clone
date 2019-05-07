@@ -7,6 +7,7 @@ const mailControllers = require("../controllers/mail");
 
 router.get("/", isAuth, mailControllers.getMails);
 router.get("/:mailId", isAuth, mailControllers.getMail);
+router.delete("/:mailId", isAuth, mailControllers.deleteMail);
 
 router.post("/", isAuth, mailControllers.postMail);
 

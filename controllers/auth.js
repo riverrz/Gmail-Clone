@@ -17,7 +17,7 @@ exports.postRegister = async (req, res, next) => {
     if (user) {
       const error = new Error("Username already taken.");
       error.statusCode = 422;
-      throw error;
+      return next(error);
     }
   } catch (error) {
     error.statusCode = error.statusCode || 500;
@@ -82,7 +82,7 @@ exports.postLogin = async (req, res, next) => {
     });
   } catch (err) {
     err.statusCode = err.statusCode || 500;
-    throw err;
+    next(err);
   }
 };
 
