@@ -140,11 +140,20 @@ class Inbox extends Component {
             Logout
           </button>
         </nav>
-        <main className="Inbox__main">{content}</main>
+        <main className="Inbox__main">
+          <h3>Welcome {this.props.username}</h3>
+          {content}
+        </main>
       </Fragment>
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    username: state.auth.username
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -153,6 +162,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(Inbox);
