@@ -2,31 +2,35 @@ import React, { Component, Fragment } from "react";
 import "./CreateMail.css";
 
 class CreateMail extends Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    if (this.props.createMail !== nextProps.createMail) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  state = {
+    createMail: false
+  };
+
+  createMailHandler = () => {
+    this.setState(prevState => {
+      return {
+        createMail: !prevState.createMail
+      };
+    });
+  };
   render() {
     return (
       <Fragment>
         <div
           className="CreateMail__container"
-          onClick={this.props.createMailHandler}
+          onClick={this.createMailHandler}
         >
           <button className="CreateMail__createBtn">
             <i
               className={`fas fa-plus ${
-                this.props.createMail ? "CreateMail__createBtn--close" : ""
+                this.state.createMail ? "CreateMail__createBtn--close" : ""
               }`}
             />
           </button>
         </div>
         <div
           className={`CreateMail__formContainer ${
-            this.props.createMail
+            this.state.createMail
               ? "formContainer--visible"
               : "formContainer--hidden"
           }`}

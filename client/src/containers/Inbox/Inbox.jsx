@@ -14,8 +14,7 @@ class Inbox extends Component {
     error: false,
     errorMessageArr: [],
     showMail: false,
-    singleMail: null,
-    createMail: false
+    singleMail: null
   };
   handleLogout = () => {
     // Remove the token from local storage
@@ -107,14 +106,6 @@ class Inbox extends Component {
       singleMail: null
     });
   };
-
-  createMailHandler = () => {
-    this.setState(prevState => {
-      return {
-        createMail: !prevState.createMail
-      };
-    });
-  };
   render() {
     let content;
     if (this.state.loading) {
@@ -153,10 +144,7 @@ class Inbox extends Component {
         <main className="Inbox__main">
           <h3>Welcome {this.props.username}</h3>
           {content}
-          <CreateMail
-            createMailHandler={this.createMailHandler}
-            createMail={this.state.createMail}
-          />
+          <CreateMail />
         </main>
       </Fragment>
     );
