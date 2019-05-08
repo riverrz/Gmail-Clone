@@ -59,7 +59,7 @@ class CreateMail extends Component {
                 name="body"
                 id="body"
                 cols="30"
-                rows="10"
+                rows="7"
                 placeholder="Body of the mail"
               />
             </div>

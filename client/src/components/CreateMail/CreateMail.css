@@ -66,6 +66,14 @@
   outline: none;
   padding: 1rem;
   font-size: 1rem;
+  font-family: inherit;
+}
+.CreateMail__form .form__control textarea{
+  color: #222;
+  outline: none;
+  border: 2px solid #d3d3d3;
+  font-family: inherit;
+  padding: 0.4rem;
 }
 .formContainer--hidden {
   transform: scale(0);
